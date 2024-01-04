@@ -1,0 +1,56 @@
+plugins {
+    id 'java-library'
+    id 'scala'
+    id 'maven-publish'
+}
+
+group = 'com.lucendar'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.13.11'
+    implementation 'com.typesafe.scala-logging:scala-logging_2.13:3.9.5'
+    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.20'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier = "sources"
+}
+
+publishing {
+    repositories {
+        maven {
+            if (project.version.toString().endsWith("-SNAPSHOT")) {
+                name = "snapshotsRepo"
+                url = "https://wx.gratour.info:7999/repository/maven-snapshots/"
+            } else {
+                name = "releasesRepo"
+                url = "https://wx.gratour.info:7999/repository/my-nexus/"
+            }
+
+            credentials {
+                username = "${ossUser}"
+                password = "${ossPwd}"
+            }
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
