@@ -45,7 +45,7 @@ class Buncher(target: ActorRef, interval: FiniteDuration, maxSize: Int) extends 
       val newBuffer = buffer :+ ReqAndSender(m.req, sender())
       if (newBuffer.size == maxSize) {
         timers.cancel(TimerKey)
-        target ! BunchReqBatch(buffer)
+        target ! BunchReqBatch(newBuffer)
         context.become(idle)
       } else
         context.become(active(newBuffer))
