@@ -10,8 +10,15 @@ object Buncher {
   private case object Timeout
   private case object TimerKey
 
-
-
+  /**
+   * Create Buncher Props.
+   *
+   * @param target The target actor finally receives and handles the `BuncherReqBatch` message.
+   * @param interval The interval of collecting `BunchReq` messages and merge them into a single `BuncherReqBatch` message.
+   * @param maxSize the maximum batch size. The Buncher will build a `BuncherReqBatch` message and send it to the `target`
+   *                when the count of cached messages reaches `maxSize`.
+   * @return The `Props` for the Buncher.
+   */
   def props(target: ActorRef, interval: FiniteDuration, maxSize: Int): Props =
     Props(new Buncher(target, interval, maxSize))
 
