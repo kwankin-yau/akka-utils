@@ -96,7 +96,7 @@ class Buncher2[T](
 
     case Timeout =>
       if (!noSenderList.isEmpty)
-        senderFeed()
+        noSenderFeed()
   }
 
   override def receive: Receive = if (noSender) noSenderReceive else senderReceive
