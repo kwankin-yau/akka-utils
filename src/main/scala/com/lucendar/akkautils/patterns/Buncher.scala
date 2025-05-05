@@ -1,7 +1,7 @@
 package com.lucendar.akkautils.patterns
 
 
-import akka.actor.{Actor, ActorRef, Props, Timers}
+import org.apache.pekko.actor.{Actor, ActorRef, Props, Timers}
 
 import scala.concurrent.duration.FiniteDuration
 

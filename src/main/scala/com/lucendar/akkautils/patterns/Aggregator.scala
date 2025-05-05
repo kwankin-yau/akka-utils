@@ -1,6 +1,6 @@
 package com.lucendar.akkautils.patterns
 
-import akka.actor.Actor
+import org.apache.pekko.actor.Actor
 
 import scala.annotation.tailrec
 
@@ -15,8 +15,8 @@ trait Aggregator {
   private val addBuffer = WorkList.empty[Actor.Receive]
 
   /**
-   * Adds the partial function to the receive set, to be removed on first match.
-   * @param fn The receive function.
+   * Adds the partial function to the received set, to be removed on first match.
+   * @param fn The `Receive` function.
    * @return The same receive function.
    */
   def expectOnce(fn: Actor.Receive): Actor.Receive = {

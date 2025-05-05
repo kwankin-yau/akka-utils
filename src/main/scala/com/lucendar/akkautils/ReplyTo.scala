@@ -1,6 +1,6 @@
 package com.lucendar.akkautils
 
-import akka.actor.{ActorContext, ActorRef}
+import org.apache.pekko.actor.{ActorContext, ActorRef}
 
 /**
  * A message contains `replyTo` property.
